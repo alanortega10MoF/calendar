@@ -21,12 +21,13 @@ CREATE TABLE activities
 activity_ID int auto_increment NOT NULL UNIQUE,
 users_ID int NOT NULL,
 activity_name varchar(40) NOT NULL,
+
 month_num int(2) NOT NULL,
 day_of_month int(2) NOT NULL,
 yr int(5) NOT NULL,
-
 hr int(2) NOT NULL,
 minutes int(2) NOT NULL,
+
 end_month_num int(2) NOT NULL,
 end_day_of_month int(2) NOT NULL,
 end_yr int(5) NOT NULL,
@@ -60,7 +61,8 @@ event_type varchar(30) NOT NULL,
 PRIMARY KEY (color_set_ID)
 )
 ;
-ALTER TABLE ADD UNIQUE col_set_cand_key (us_ID, color, event_type);
+ALTER TABLE color_settings ADD UNIQUE col_set_cand_key (us_ID, color, event_type);
+ALTER TABLE color_settings ADD CONSTRAINT col_set_fk_u_ID foreign key (us_ID) REFERENCES users(u_ID);
 
 INSERT INTO color_settings (us_ID, color, event_type) VALUES (1, "purple", "Wedding");
 
