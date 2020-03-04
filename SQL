@@ -1,0 +1,68 @@
+DROP TABLE activities;
+DROP TABLE color_settings;
+DROP TABLE users;
+
+CREATE TABLE users
+(
+u_ID int auto_increment NOT NULL UNIQUE,
+username varchar(40),
+password varchar(20),
+nickname varchar(40),
+
+PRIMARY KEY (u_ID)
+)
+;
+ALTER TABLE users ADD UNIQUE us_cand_key(username, password)
+
+INSERT INTO users(username, password, nickname) VALUES ('Sample User Alan', 'cookie', 'RC');
+
+CREATE TABLE activities
+(
+activity_ID int auto_increment NOT NULL UNIQUE,
+users_ID int NOT NULL,
+activity_name varchar(40) NOT NULL,
+month_num int(2) NOT NULL,
+day_of_month int(2) NOT NULL,
+yr int(5) NOT NULL,
+
+hr int(2) NOT NULL,
+minutes int(2) NOT NULL,
+end_month_num int(2) NOT NULL,
+end_day_of_month int(2) NOT NULL,
+end_yr int(5) NOT NULL,
+end_hr int(2) NOT NULL,
+end_minutes int(2) NOT NULL,
+
+visible BOOLEAN,
+font_color varchar(15),
+recurrence_frequency varchar(15),
+
+PRIMARY KEY (activity_ID)
+)
+;
+ALTER TABLE activities ADD UNIQUE act_cand_key(users_ID, activity_name, month_num, day_of_month, yr);
+ALTER TABLE activities ADD CONSTRAINT act_fk_u_ID foreign key (users_ID) REFERENCES users(u_ID);
+
+INSERT INTO activities( users_ID, activity_name, month_num, day_of_month, yr, visible, font_color, recurrence_frequency) VALUES
+(1, "Eating Cookies", 2, 14, 2020, true, "Blue", "never")
+(1, "Testing Code", 2, 14, 2020, true, "Red", "never")
+(1, "Doing other things", 2, 14, 2020, true, "Blue", "never")
+(1, "Class", 2, 20, 2020, true, "Yellow", "never")
+;
+
+CREATE TABLE color_settings
+(
+color_set_ID int auto_increment NOT NULL UNIQUE,
+us_ID int NOT NULL,
+color varchar(20) NOT NULL,
+event_type varchar(30) NOT NULL,
+
+PRIMARY KEY (color_set_ID)
+)
+;
+ALTER TABLE ADD UNIQUE col_set_cand_key (us_ID, color, event_type);
+
+INSERT INTO color_settings (us_ID, color, event_type) VALUES (1, "purple", "Wedding");
+
+SELECT * FROM users
+INNER JOIN activities ON users.u_ID = activities.users_ID;
