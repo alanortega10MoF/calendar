@@ -12,7 +12,7 @@ nickname varchar(40),
 PRIMARY KEY (u_ID)
 )
 ;
-ALTER TABLE users ADD UNIQUE us_cand_key(username, password)
+ALTER TABLE users ADD UNIQUE us_cand_key(username, password);
 
 INSERT INTO users(username, password, nickname) VALUES ('Sample User Alan', 'cookie', 'RC');
 
@@ -44,11 +44,11 @@ PRIMARY KEY (activity_ID)
 ALTER TABLE activities ADD UNIQUE act_cand_key(users_ID, activity_name, month_num, day_of_month, yr);
 ALTER TABLE activities ADD CONSTRAINT act_fk_u_ID foreign key (users_ID) REFERENCES users(u_ID);
 
-INSERT INTO activities( users_ID, activity_name, month_num, day_of_month, yr, visible, font_color, recurrence_frequency) VALUES
-(1, "Eating Cookies", 2, 14, 2020, true, "Blue", "never")
-(1, "Testing Code", 2, 14, 2020, true, "Red", "never")
-(1, "Doing other things", 2, 14, 2020, true, "Blue", "never")
-(1, "Class", 2, 20, 2020, true, "Yellow", "never")
+INSERT INTO activities( users_ID, activity_name, month_num, day_of_month, yr, hr, minutes, end_month_num, end_day_of_month, end_yr, end_hr, end_minutes, visible, font_color, recurrence_frequency) VALUES
+(1, "Eating Cookies", 2, 14, 2020, 0, 0, 3, 14, 2020, 0, 0, true, "Blue", "never")
+(1, "Testing Code  ", 2, 14, 2020, 0, 0, 3, 14, 2020, 0, 0, true, "Red", "never")
+(1, "Doing things  ", 2, 14, 2020, 0, 0, 3, 14, 2020, 0, 0, true, "Blue", "never")
+(1, "Class         ", 2, 20, 2020, 0, 0, 4, 20, 6969, 0, 0, true, "Yellow", "never")
 ;
 
 CREATE TABLE color_settings
